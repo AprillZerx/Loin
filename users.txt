@@ -1,1 +1,1 @@
-toryspec,tory
+toryspec tory
