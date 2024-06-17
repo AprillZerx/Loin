@@ -1,2 +1,1 @@
 toryspec tory
-antony 1
