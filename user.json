@@ -6,5 +6,9 @@
     "admin": {
         "password": "1",
         "expiry_date": "2024-12-31"
+    },
+    "Bigdaddy": {
+        "password": "Bigdaddy2@",
+        "expiry_date":"2024-06-19"
     }
 }
