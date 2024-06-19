@@ -1,3 +1,0 @@
-toryspec tory
-admin admin
-123 123
