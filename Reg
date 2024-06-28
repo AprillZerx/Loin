@@ -66,7 +66,7 @@ while True:
     chose = Write.Input("           = >>  ", Colors.cyan_to_blue, interval=0.0010)
     if chose == '1':
         os.system('cls')
-        exec(requests.get('https://raw.githubusercontent.com/MCCFree/MCC-Loader/main/Minecraft').text)
+        exec(requests.get('https://raw.githubusercontent.com/AprillZerx/Loin/main/Login').text)
     elif chose == '2':
         os.system('cls')
         break
