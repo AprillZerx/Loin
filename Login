@@ -1,0 +1,105 @@
+import sys
+import time
+from datetime import datetime
+import os
+import ctypes
+import requests
+
+try:
+    from faker import Faker
+    from requests import session
+    from colorama import Fore, Style
+    from random import choice, randint, shuffle
+    import pystyle
+    from pystyle import Write, Colors
+except ImportError:
+    os.system("pip install sockets")
+    os.system("pip install faker && pip install ctypes")
+    os.system("pip install requests")
+    os.system("pip install colorama && pip install subprocess")
+    os.system("pip install pystyle")
+    from faker import Faker
+    from requests import session
+    from colorama import Fore, Style
+    from random import choice, randint, shuffle
+    import pystyle
+    from pystyle import Write, Colors
+
+def windowtitle(a):
+    os.system(f"title {a}")
+
+windowtitle("VUILDTEDDY LOGIN PAGE")
+
+def fetch_users_file(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Error fetching users file: {e}")
+        return None
+
+def parse_users_file(json_data):
+    users = {}
+    for username, details in json_data.items():
+        try:
+            password = details['password']
+            expiry_date = datetime.strptime(details['expiry_date'], '%Y-%m-%d').date()
+            users[username] = (password, expiry_date)
+        except ValueError as e:
+            print(f"Error parsing expiry date for user '{username}': {e}")
+    return users
+
+def authenticate(username, password, users):
+    if username in users:
+        stored_password = users[username][0]
+        expiry_date = users[username][1]
+        if password == stored_password:
+            if datetime.today().date() <= expiry_date:
+                return True
+            else:
+                print("Your username/password is incorrect or expired")
+        else:
+            print("Incorrect Password/Incorrect Username.")
+    else:
+        print("Don't have an account? Contact Discord: vuildteddy_ to create a new one.")
+    return False
+
+def set_window_title(title):
+    ctypes.windll.kernel32.SetConsoleTitleW(title)
+
+def run_external_script(script_url):
+    try:
+        response = requests.get(script_url)
+        response.raise_for_status()
+        exec(response.text)
+    except requests.RequestException as e:
+        print(f"Error fetching script: {e}")
+    except Exception as e:
+        print(f"Error executing script: {e}")
+
+def main():
+    url = 'https://raw.githubusercontent.com/AprillZerx/Loin/main/user.json'
+    json_data = fetch_users_file(url)
+    if json_data is None:
+        return
+    users = parse_users_file(json_data)
+    while True:
+        entered_username = input("Username: ")
+        entered_password = input("Password: ")
+
+        if authenticate(entered_username, entered_password, users):
+            set_window_title(f"Welcome, {entered_username} to VuildTeddy")
+            print("Welcome to VuildTeddy!")
+            time.sleep(1)
+            print("Contact Discord vuildteddy_ to reset password/change password!")
+            time.sleep(0.0025)
+            run_external_script("https://raw.githubusercontent.com/AprillZerx/Loin/main/Prof.py")
+            break
+        else:
+            time.sleep(2)
+            os.system('cls')
+            break
+
+if __name__ == "__main__":
+    main()
